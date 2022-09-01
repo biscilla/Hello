@@ -1,0 +1,33 @@
+# gpa-calculator
+This gpa calculator calculates a person's gpa using grades and course units.
+
+grade_map={'A':5, 'B':4, 'C':3, 'D':2, 'E':1,'F':0}
+
+no_of_courses= int(input('Enter number of courses taken this semester\n')) #collects the number of courses taken in a semester
+
+total_grade_point=0
+total_units=0
+
+for y in range(1, no_of_courses +1):
+    
+    grade= input('Enter Grade for course '+ str(y) + '\n').upper() #collects user grades
+    if grade not in grade_map:
+        loop=True
+        while loop:
+            grade=input('invalid grade! Try again\n').upper()
+            if grade in grade_map:
+                loop=False
+    
+    course_unit= int(input('Enter course unit for course ' + str(y) + '\n')) #collects the course unit for each grade
+    
+    x=int(grade_map[grade])
+    grade_point= course_unit * x
+    
+    total_grade_point += grade_point
+    total_units += course_unit
+    
+    
+    gpa= total_grade_point / total_units
+
+print('Your GPA is: ' + str(gpa)) #prints out the user's gpa
+
