@@ -1,0 +1,29 @@
+import os
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+import time
+os.environ['PATH'] += r'C:\SeleniumDrivers'  #adds the path of the chrome driver to the PATH environment variable
+driver= webdriver.Chrome()
+
+driver.get('https://careers.google.com')
+time.sleep(5)
+
+what= driver.find_element(By.ID, 'inline-search-input-query')  
+what.send_keys('software engineer')
+
+where=driver.find_element(By.ID, 'inline-search-input-location')
+where.send_keys('Los Angeles')
+where.send_keys(Keys.RETURN)
+
+driver.implicitly_wait(20)
+jobs= driver.find_elements(By.CLASS_NAME, 'gc-card')
+for job in jobs:
+    job_title= job.find_element(By.TAG_NAME, 'h2').text.strip()
+    company_name=job.find_element(By.CLASS_NAME, 'gc-job-tags__team').text.strip()
+    location= job.find_element(By.CLASS_NAME, 'gc-job-tags__location').text.replace('\n', '')
+
+    print(f'Job Title: {job_title}')
+    print(f'Company: {company_name}')
+    print(f'Location: {location}')
+    print('')
